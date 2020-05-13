@@ -42,4 +42,31 @@ class Login extends BaseController
             return redirect('login');
         }
     }
+    
+    public function check(){
+        $model = new LoginModel();
+        
+        if(!$this->validate([
+            'user' => 'required|min_length[8]|max_length[30]',
+            'password' => 'required|min_length[8]|max_length[30]',
+            
+        ])){
+            echo view('templates/header' , ['title' => REGISTER_TITLE]);
+            echo view('login/login');
+            echo view('templaets/footer');
+        }
+        else{
+            $user = $model->check(
+                    $this->request->getVar('user'),
+                    $this->request->getVar('password')
+                    );
+            if($user){
+                $_SESSION['user'] = $user;
+                return redirect('todo');
+            }
+            else{
+                return redirect('login');
+            }
+        }
+    }
 }

@@ -3,6 +3,11 @@ use App\Models\TodoModel;
 
 class Todo extends BaseController
 {
+    
+    public function __construct() {
+        $session = \Config\Services::session();
+        $session->start();
+    }
     public function index()
     {
         $model = new TodoModel();
