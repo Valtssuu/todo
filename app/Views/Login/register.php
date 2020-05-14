@@ -40,7 +40,7 @@
         <label>Password again</label>
         <input
             class="form-control"
-            name="passwordagain"
+            name="confirmpassword"
             type="password"
             placeholder="Enter password again"
             maxlength="30">

@@ -4,6 +4,11 @@ use App\Models\LoginModel;
 const REGISTER_TITLE = 'Todo - Register';
 class Login extends BaseController
 {
+    public function __construct() {
+        $session = \Config\Services::session();
+        $session->start();
+    }
+    
     public function index(){
         $data['title'] = 'Todo - Login';
         echo view('templates/header',$data);

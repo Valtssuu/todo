@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('todo', 'Todo::index');
+$routes->get('todo/delete(:segment)', 'Todo::delete/$1');
 $routes->get('login', 'Login::index');
 
 /**

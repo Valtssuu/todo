@@ -18,7 +18,5 @@ class LoginModel extends Model
         }
         return null;
     }
-    public function getUserInfo(){
-        return $this->findAll();
-    }
+    
 }

@@ -10,6 +10,9 @@ class Todo extends BaseController
     }
     public function index()
     {
+        if(!isset($_SESSION['user'])){
+            return redirect('login');
+        }
         $model = new TodoModel();
         $data['title'] = 'Todo';
         $data['todos'] = $model->getTodos();
@@ -28,14 +31,30 @@ class Todo extends BaseController
             echo view('templates/header', ['title' => 'Add new task']);
             echo view('todo/create');
             echo view('templates/footer');
-            
         }
         else{
+            $user = $_SESSION['user'];
             $model->save([
-               'title' => $this->request->getVar('title'),
-                'description' => $this->request->getVar('description')
+                'title' => $this->request->getVar('title'),
+                'description' => $this->request->getVar('description'),
+                'user_id' => $user->id
             ]);
             return redirect('todo');
         }
+    }
+    
+    public function delete($id){
+        if(!is_numeric($id)){
+            throw new Exception('Provided id is not a number.');
+        }
+        
+        if(!isset($_SESSION['user'])){
+            return redirect('login');
+        }
+        
+        $model = new TodoModel();
+        
+        $model->remove($id);
+        return redirect('todo');
     }
 }
